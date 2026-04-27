@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubén Bravo García | ASIR · CyberSec</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-mode">
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="scanlines"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- GLITCH CURSOR -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-bracket">[</span>
+                <span class="logo-rbg">RBG</span>
+                <span class="logo-underscore">_</span>
+                <span class="logo-bracket">]</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#sobre-mi"><span class="nav-num">01.</span>whoami</a></li>
+                <li><a href="#experiencia"><span class="nav-num">02.</span>xp</a></li>
+                <li><a href="#proyectos"><span class="nav-num">03.</span>projects</a></li>
+                <li><a href="#habilidades"><span class="nav-num">04.</span>skills</a></li>
+                <li><a href="#contacto"><span class="nav-num">05.</span>contact</a></li>
+            </ul>
+            <button id="theme-toggle" class="theme-btn" title="Toggle theme">
+                <span class="theme-icon">◐</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===================== HERO ===================== -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="terminal-prompt">
+                <span class="prompt-user">rbg</span><span class="prompt-at">@</span><span class="prompt-host">kali</span><span class="prompt-colon">:</span><span class="prompt-path">~/portfolio</span><span class="prompt-dollar"> $</span>
+                <span class="prompt-cmd" id="typed-cmd"></span><span class="cursor">▌</span>
+            </div>
+
+            <h1 class="hero-name">
+                <span class="name-rubén">Rubén</span>
+                <span class="name-bravo">Bravo</span>
+                <span class="name-garcia accent">García<span class="glitch-char" data-text="García">García</span></span>
+            </h1>
+
+            <p class="hero-role">
+                <span class="role-bracket">&lt;</span>
+                ASIR<span class="sep"> // </span>CyberSec Ofensiva<span class="sep"> // </span>SysAdmin
+                <span class="role-bracket"> /&gt;</span>
+            </p>
+
+            <div class="hero-badges">
+                <span class="badge">ASIR</span>
+                <span class="badge highlight">Indra</span>
+                <span class="badge highlight-blue">PortSwigger</span>
+                <span class="badge">OWASP</span>
+                <span class="badge">Metasploit</span>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#proyectos" class="btn-primary">
+                    <span class="btn-icon">$</span> ver proyectos
+                </a>
+                <a href="#contacto" class="btn-outline">contactar</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="terminal-window">
+                <div class="terminal-bar">
+                    <span class="t-dot red"></span>
+                    <span class="t-dot yellow"></span>
+                    <span class="t-dot green"></span>
+                    <span class="t-title">rbg@kali — bash</span>
+                    <span class="terminal-tip">↑↓ historial · TAB autocompletar</span>
+                </div>
+                <div class="terminal-body" id="terminal-body">
+                    <div class="t-line"><span class="t-cyan">[*]</span> Iniciando reconocimiento...</div>
+                    <div class="t-line"><span class="t-green">[+]</span> Target: localhost</div>
+                    <div class="t-line"><span class="t-cyan">[*]</span> Escaneando puertos abiertos</div>
+                    <div class="t-line t-fade"><span class="t-yellow">[!]</span> Puerto 80/tcp  — HTTP</div>
+                    <div class="t-line t-fade"><span class="t-yellow">[!]</span> Puerto 443/tcp — HTTPS</div>
+                    <div class="t-line t-fade"><span class="t-yellow">[!]</span> Puerto 22/tcp  — SSH</div>
+                    <div class="t-line t-fade"><span class="t-green">[+]</span> SQLi: testando payloads...</div>
+                    <div class="t-line t-fade"><span class="t-green">[+]</span> XSS: <span class="t-red">VULNERABLE</span></div>
+                    <div class="t-line t-fade t-muted">// OWASP Top 10 · PortSwigger Labs</div>
+                    <div class="t-line t-fade">
+                        <span class="t-green">msf6 &gt;</span> <span class="t-white">use exploit/multi/handler</span>
+                    </div>
+                    <div class="t-line t-fade t-muted">// Metasploit Framework ready</div>
+                </div>
+            </div>
+
+            <!-- HEXAGONS DECORATION -->
+            <div class="hex-grid">
+                <div class="hex"><span>SQL</span></div>
+                <div class="hex"><span>XSS</span></div>
+                <div class="hex"><span>CSRF</span></div>
+                <div class="hex hex-dim"><span>RCE</span></div>
+                <div class="hex hex-dim"><span>LFI</span></div>
+                <div class="hex hex-dim"><span>XXE</span></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===================== SOBRE MÍ ===================== -->
+        <section id="sobre-mi" class="section">
+            <div class="section-header">
+                <span class="section-num">01</span>
+                <h2>whoami<span class="accent">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text card">
+                    <p>Técnico en <strong>ASIR</strong> con la cabeza puesta en el mundo de la <strong>ciberseguridad ofensiva</strong>. Mi paso por <strong>Indra</strong> me acercó por primera vez a entornos reales de seguridad: prácticas con <strong>PortSwigger Web Security Academy</strong>, fundamentos de <strong>OWASP</strong> y preparación de máquinas en <strong>Metasploit</strong> para ejecutar ataques controlados.</p>
+                    <p>También cuento con experiencia técnica en campo: <strong>instalación de antenas de TV y cámaras de seguridad</strong> en el centro de Madrid con Norma Visión. Me gustan los proyectos reales, trabajar en equipo y aprender haciendo.</p>
+                    <p>Fuera del IT, he trabajado de cara al público en hostelería y retail, lo que me ha dado capacidad de <strong>adaptación, comunicación y trabajo bajo presión</strong> que aplico en cualquier entorno.</p>
+
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-num">ASIR</span>
+                            <span class="stat-label">titulación</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">2</span>
+                            <span class="stat-label">prácticas</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">3+</span>
+                            <span class="stat-label">años trabajando</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">∞</span>
+                            <span class="stat-label">ganas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-code card">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-file">rbg.json</span>
+                    </div>
+                    <pre class="code-block"><span class="c-gray">{</span>
+  <span class="c-key">"nombre"</span><span class="c-gray">:</span> <span class="c-str">"Rubén Bravo García"</span><span class="c-gray">,</span>
+  <span class="c-key">"ubicacion"</span><span class="c-gray">:</span> <span class="c-str">"Madrid, España"</span><span class="c-gray">,</span>
+  <span class="c-key">"titulacion"</span><span class="c-gray">:</span> <span class="c-str">"ASIR"</span><span class="c-gray">,</span>
+  <span class="c-key">"foco"</span><span class="c-gray">:</span> <span class="c-arr">[</span>
+    <span class="c-str">"CyberSec Ofensiva"</span><span class="c-gray">,</span>
+    <span class="c-str">"Pentesting Web"</span><span class="c-gray">,</span>
+    <span class="c-str">"SysAdmin"</span>
+  <span class="c-arr">]</span><span class="c-gray">,</span>
+  <span class="c-key">"tools"</span><span class="c-gray">:</span> <span class="c-arr">[</span>
+    <span class="c-str">"Metasploit"</span><span class="c-gray">,</span>
+    <span class="c-str">"PortSwigger Burp"</span><span class="c-gray">,</span>
+    <span class="c-str">"Nmap"</span><span class="c-gray">,</span>
+    <span class="c-str">"Kali Linux"</span>
+  <span class="c-arr">]</span><span class="c-gray">,</span>
+  <span class="c-key">"disponible"</span><span class="c-gray">:</span> <span class="c-bool">true</span><span class="c-gray">,</span>
+  <span class="c-key">"buscando"</span><span class="c-gray">:</span> <span class="c-str">"oportunidad en ciberseguridad"</span>
+<span class="c-gray">}</span></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== EXPERIENCIA ===================== -->
+        <section id="experiencia" class="section">
+            <div class="section-header">
+                <span class="section-num">02</span>
+                <h2>experience<span class="accent">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="timeline">
+
+                <!-- INDRA -->
+                <div class="timeline-item featured-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content card">
+                        <div class="xp-header">
+                            <div>
+                                <span class="xp-tag cybersec">CyberSec</span>
+                                <h3 class="xp-title">Prácticas en Ciberseguridad</h3>
+                                <p class="xp-company">
+                                    <span class="company-name">Indra</span>
+                                    <span class="xp-period">— Prácticas ASIR</span>
+                                </p>
+                            </div>
+                            <div class="xp-icon-wrap">
+                                <span class="xp-big-icon">🛡</span>
+                            </div>
+                        </div>
+                        <div class="xp-body">
+                            <p>Prácticas de formación en un entorno corporativo real con foco en <strong>ciberseguridad ofensiva y pentesting web</strong>. Trabajo con herramientas del sector en un contexto supervisado y profesional.</p>
+                            <ul class="xp-bullets">
+                                <li><span class="bullet-arrow">→</span> Labs de <strong>PortSwigger Web Security Academy</strong> (nivel básico-intermedio): SQL Injection, XSS, CSRF, SSRF y más vulnerabilidades del OWASP Top 10</li>
+                                <li><span class="bullet-arrow">→</span> Fundamentos de <strong>OWASP</strong>: análisis y comprensión de las 10 vulnerabilidades web más críticas</li>
+                                <li><span class="bullet-arrow">→</span> Preparación de <strong>máquinas vulnerables en Metasploit Framework</strong>: configuración de entornos, ejecución de exploits y análisis de resultados</li>
+                                <li><span class="bullet-arrow">→</span> Contacto con metodología de pentesting y documentación de vulnerabilidades</li>
+                            </ul>
+                        </div>
+                        <div class="xp-tech">
+                            <span>PortSwigger</span>
+                            <span>Metasploit</span>
+                            <span>OWASP</span>
+                            <span>Burp Suite</span>
+                            <span>Kali Linux</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NORMA VISIÓN -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content card">
+                        <div class="xp-header">
+                            <div>
+                                <span class="xp-tag hardware">Instalaciones</span>
+                                <h3 class="xp-title">Técnico de Instalaciones</h3>
+                                <p class="xp-company">
+                                    <span class="company-name">Norma Visión</span>
+                                    <span class="xp-period">— Prácticas ASIR</span>
+                                </p>
+                            </div>
+                            <div class="xp-icon-wrap">
+                                <span class="xp-big-icon">📡</span>
+                            </div>
+                        </div>
+                        <div class="xp-body">
+                            <p>Trabajo técnico en campo en el <strong>centro de Madrid</strong>, instalando y manteniendo infraestructura de telecomunicaciones y seguridad física en edificios.</p>
+                            <ul class="xp-bullets">
+                                <li><span class="bullet-arrow">→</span> Instalación de <strong>antenas de televisión</strong> en edificios residenciales y comerciales</li>
+                                <li><span class="bullet-arrow">→</span> Instalación y configuración de <strong>sistemas de cámaras de seguridad (CCTV)</strong> en edificios del centro de Madrid</li>
+                                <li><span class="bullet-arrow">→</span> Mantenimiento y revisión periódica de los sistemas instalados</li>
+                                <li><span class="bullet-arrow">→</span> Trabajo en altura y en espacios técnicos con herramientas especializadas</li>
+                            </ul>
+                        </div>
+                        <div class="xp-tech">
+                            <span>CCTV</span>
+                            <span>Cableado</span>
+                            <span>Telecom</span>
+                            <span>Mantenimiento</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TRABAJOS PREVIOS -->
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="marker-dot marker-dim"></div>
+                        <div class="marker-line marker-line-end"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="xp-subtitle">Experiencia laboral previa</h3>
+                        <div class="prev-jobs">
+                            <div class="prev-job card">
+                                <span class="prev-icon">🍔</span>
+                                <div>
+                                    <p class="prev-title">Cocinero y Camarero</p>
+                                    <p class="prev-place">McDonald's · 2 año</p>
+                                    <p class="prev-desc">Trabajo en equipo bajo alta presión, gestión de tiempos y atención al cliente en entorno de alta demanda.</p>
+                                </div>
+                            </div>
+                            <div class="prev-job card">
+                                <span class="prev-icon">☕</span>
+                                <div>
+                                    <p class="prev-title">Camarero</p>
+                                    <p class="prev-place">Bar · 1 año</p>
+                                    <p class="prev-desc">Servicio en barra y sala. Trato directo con clientes y gestión del servicio de principio a fin.</p>
+                                </div>
+                            </div>
+                            <div class="prev-job card">
+                                <span class="prev-icon">🛒</span>
+                                <div>
+                                    <p class="prev-title">Cajero y Reponedor</p>
+                                    <p class="prev-place">Ahorra Más · 1 año</p>
+                                    <p class="prev-desc">Gestión de caja, reposición de productos y atención al cliente. Trabajo autónomo y responsable.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== PROYECTOS ===================== -->
+        <section id="proyectos" class="section">
+            <div class="section-header">
+                <span class="section-num">03</span>
+                <h2>projects<span class="accent">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="projects-grid">
+
+                <!-- PROYECTO DESTACADO: CyberSec -->
+                <div class="project-card featured">
+                    <div class="project-glow"></div>
+                    <div class="project-top">
+                        <div class="project-icon-wrap">
+                            <span class="project-icon">⚔️</span>
+                        </div>
+                        <div class="project-links">
+                            <span class="project-tag">Indra · Prácticas</span>
+                        </div>
+                    </div>
+                    <h3>Pentesting Web · PortSwigger Labs</h3>
+                    <p>Resolución de laboratorios de vulnerabilidades web reales en el entorno de PortSwigger Web Security Academy durante las prácticas en Indra. Trabajo con las vulnerabilidades del OWASP Top 10 más comunes en aplicaciones web.</p>
+                    <div class="project-achievements">
+                        <div class="achievement"><span class="ach-icon">✓</span> SQL Injection básico</div>
+                        <div class="achievement"><span class="ach-icon">✓</span> XSS reflected y stored</div>
+                        <div class="achievement"><span class="ach-icon">✓</span> CSRF y SSRF básico</div>
+                        <div class="achievement"><span class="ach-icon">✓</span> Auth bypass</div>
+                    </div>
+                    <div class="project-tech">
+                        <span>PortSwigger</span>
+                        <span>Burp Suite</span>
+                        <span>OWASP</span>
+                        <span>HTTP</span>
+                    </div>
+                </div>
+
+                <!-- PROYECTO: Metasploit -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon-wrap"><span class="project-icon">💥</span></div>
+                    </div>
+                    <h3>Laboratorio Metasploit</h3>
+                    <p>Preparación y configuración de máquinas vulnerables en Metasploit Framework. Configuración del entorno, uso de módulos de exploit y análisis de los resultados de los ataques en entorno controlado.</p>
+                    <div class="project-tech">
+                        <span>Metasploit</span>
+                        <span>msfconsole</span>
+                        <span>Kali Linux</span>
+                        <span>VMs</span>
+                    </div>
+                </div>
+
+                <!-- PROYECTO: Web personal -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon-wrap"><span class="project-icon">🌐</span></div>
+                    </div>
+                    <h3>Proyectos Web Personales</h3>
+                    <p>Desarrollo de páginas web propias desde cero. HTML, CSS y JavaScript funcional. Sin frameworks — código limpio y aprendizaje directo del DOM y de cómo funciona la web por debajo.</p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                    </div>
+                </div>
+
+                <!-- PROYECTO: Juego Phaser -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon-wrap"><span class="project-icon">🎮</span></div>
+                    </div>
+                    <h3>Juego en Phaser.js</h3>
+                    <p>Videojuego 2D desarrollado con Phaser 3. Proyecto personal para aprender programación orientada a eventos, física básica en 2D y lógica de juego. Sencillo pero funcional y terminado.</p>
+                    <div class="project-tech">
+                        <span>Phaser 3</span>
+                        <span>JavaScript</span>
+                        <span>Canvas</span>
+                    </div>
+                </div>
+
+                <!-- PROYECTO: Python -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon-wrap"><span class="project-icon">🐍</span></div>
+                    </div>
+                    <h3>Script / Juego en Python</h3>
+                    <p>Pequeño proyecto en Python — script o juego sencillo para aprender la sintaxis del lenguaje, estructuras de datos básicas y lógica de programación. Primer contacto real con Python.</p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>CLI</span>
+                        <span>OOP</span>
+                    </div>
+                </div>
+
+                <!-- PROYECTO: CCTV Norma Vision -->
+                <div class="project-card">
+                    <div class="project-top">
+                        <div class="project-icon-wrap"><span class="project-icon">📷</span></div>
+                        <span class="project-tag small">Norma Visión</span>
+                    </div>
+                    <h3>Sistemas CCTV · Madrid Centro</h3>
+                    <p>Instalación real de sistemas de videovigilancia en edificios del centro de Madrid. Cableado, posicionamiento de cámaras, configuración del DVR/NVR y pruebas de funcionamiento.</p>
+                    <div class="project-tech">
+                        <span>CCTV</span>
+                        <span>DVR/NVR</span>
+                        <span>Cableado</span>
+                        <span>On-site</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== HABILIDADES ===================== -->
+        <section id="habilidades" class="section">
+            <div class="section-header">
+                <span class="section-num">04</span>
+                <h2>skills<span class="accent">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="skills-layout">
+
+                <div class="skills-col">
+                    <div class="skill-category card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">⚔</span> // CyberSec Ofensiva</h4>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <span class="skill-name">PortSwigger / Burp Suite</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:60%"></div></div>
+                                <span class="skill-pct">básico+</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Metasploit Framework</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:55%"></div></div>
+                                <span class="skill-pct">básico+</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">OWASP Top 10</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div>
+                                <span class="skill-pct">medio</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Nmap / Reconocimiento</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:60%"></div></div>
+                                <span class="skill-pct">básico+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">⚙</span> // Sistemas</h4>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <span class="skill-name">Linux / Bash</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:78%"></div></div>
+                                <span class="skill-pct">78%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Windows Server</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:72%"></div></div>
+                                <span class="skill-pct">72%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Virtualización (VMware/VBox)</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:70%"></div></div>
+                                <span class="skill-pct">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skills-col">
+                    <div class="skill-category card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">🌐</span> // Redes</h4>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <span class="skill-name">TCP/IP · Networking</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div>
+                                <span class="skill-pct">75%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Firewalls · ACLs</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:68%"></div></div>
+                                <span class="skill-pct">68%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">CCTV · Instalaciones</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:80%"></div></div>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">💻</span> // Desarrollo</h4>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <span class="skill-name">HTML / CSS / JS</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div>
+                                <span class="skill-pct">65%</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Python</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:40%"></div></div>
+                                <span class="skill-pct">básico</span>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Phaser.js</span>
+                                <div class="skill-bar"><div class="skill-fill" style="--w:45%"></div></div>
+                                <span class="skill-pct">básico</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOFT SKILLS + INTERESES -->
+                <div class="skills-wide">
+                    <div class="soft-skills card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">🤝</span> // Soft Skills & Motivación</h4>
+                        <div class="soft-tags">
+                            <span class="soft-tag">Trabajo en equipo</span>
+                            <span class="soft-tag">Adaptabilidad</span>
+                            <span class="soft-tag">Trabajo bajo presión</span>
+                            <span class="soft-tag">Comunicación</span>
+                            <span class="soft-tag">Iniciativa propia</span>
+                            <span class="soft-tag">Aprendizaje continuo</span>
+                            <span class="soft-tag highlight-tag">Proyectos con impacto</span>
+                            <span class="soft-tag highlight-tag">CyberSec Ofensiva</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===================== CONTACTO ===================== -->
+        <section id="contacto" class="section">
+            <div class="section-header">
+                <span class="section-num">05</span>
+                <h2>contact<span class="accent">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="contact-wrap card">
+                <div class="contact-terminal">
+                    <span class="ct-prompt">rbg@kali:~$</span>
+                    <span class="ct-cmd"> echo "¿Hablamos?"</span>
+                </div>
+                <h3 class="contact-headline">Abierto a oportunidades</h3>
+                <p class="contact-intro">¿Tienes un proyecto, una oferta en ciberseguridad o simplemente quieres hablar de hacking ético y pentesting? Escríbeme, estoy buscando mi primer empleo en el sector.</p>
+
+                <a href="mailto:ruben@example.com" class="btn-primary contact-btn">
+                    <span class="btn-icon">✉</span> enviar mensaje
+                </a>
+
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <span class="social-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                        </span>
+                        GitHub
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </span>
+                        LinkedIn
+                    </a>
+                    <a href="#" class="social-link">
+                        <span class="social-icon">📄</span>
+                        CV.pdf
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-logo">RBG<span class="accent">.</span></span>
+            <p class="footer-copy">© 2026 Rubén Bravo García — <span class="accent">// hecho con código y ganas</span></p>
+            <span class="footer-status"><span class="status-dot"></span>disponible</span>
+        </div>
+    </footer>
+
+    <script src="assets/js/terminal.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

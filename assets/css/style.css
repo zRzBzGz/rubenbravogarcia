@@ -1565,3 +1565,45 @@ footer {
     margin-left: auto;
     letter-spacing: 0.03em;
 }
+/* ============================================
+   AJUSTES PARA MÓVILES
+   ============================================ */
+@media (max-width: 768px) {
+    /* 1. Evitar que el cursor personalizado rompa la experiencia táctil */
+    .cursor-dot, .cursor-ring {
+        display: none !important;
+    }
+
+    /* 2. Ajustar el tamaño de la tipografía del Hero */
+    .hero-title {
+        font-size: 2.5rem !important; /* Más pequeño para que no se corte */
+        line-height: 1.1;
+    }
+
+    /* 3. Hacer que las columnas se pongan una debajo de otra */
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .nav-links {
+        display: none; /* Opcional: Podrías crear un menú hamburguesa luego */
+    }
+
+    /* 4. Ajustar el ancho de las tarjetas de proyectos */
+    .project-grid {
+        grid-template-columns: 1fr !important; /* Una sola columna */
+        gap: 1.5rem;
+    }
+
+    /* 5. Terminal: hacerla más pequeña y legible */
+    .terminal-window {
+        width: 95% !important;
+        height: 350px !important;
+        font-size: 12px !important;
+    }
+
+    /* 6. Desactivar efectos pesados para ahorrar batería/CPU */
+    #bg-canvas {
+        opacity: 0.3; /* Menos distracciones */
+    }
+}

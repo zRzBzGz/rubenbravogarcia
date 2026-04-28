@@ -11,7 +11,9 @@ import { initScrollEffects, initCardTilt, initSkillBars } from './scroll.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
-    initCursor();
+    if (window.innerWidth > 768) {
+        initCursor();
+    }
     initTyping();
     initParticles();
     initScrollEffects();

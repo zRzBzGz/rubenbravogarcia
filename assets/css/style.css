@@ -290,7 +290,7 @@ body {
     position: relative;
     z-index: 2;
     padding: 32px 24px 0;
-    text-align: left;
+    text-align: center;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -301,6 +301,7 @@ body {
     color: var(--text-muted);
     margin-bottom: 16px;
     letter-spacing: 0.02em;
+    text-align: center;
 }
 
 .mobile-hero-name {
@@ -311,6 +312,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
+    align-items: center;
+    text-align: center;
 }
 
 .mobile-hero-name .name-rubén {
@@ -335,6 +338,23 @@ body {
     color: var(--text-muted);
     margin-bottom: 20px;
     letter-spacing: 0.02em;
+    text-align: center;
+}
+
+.mobile-hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.mobile-hero-cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
 }
 
 /* ============================================
@@ -1305,6 +1325,50 @@ body {
     background: var(--accent-2-dim);
 }
 
+/* Dual-project card */
+.project-desc-duo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.duo-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 0;
+}
+
+.duo-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.duo-icon { font-size: 1rem; }
+
+.duo-divider {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+    display: block;
+}
+
+/* About second paragraph */
+.about-p2 {
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
 /* ============================================
    SKILLS
    ============================================ */
@@ -1900,6 +1964,8 @@ footer {
     font-size: 2rem;
     line-height: 1;
     flex-shrink: 0;
+    display: inline-block;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 
 .idioma-name {
@@ -1996,9 +2062,13 @@ footer {
     .hero-content .hero-name { display: none; }
     .hero-content .hero-role { display: none; }
     .hero-content .terminal-prompt { display: none; }
+    .hero-content .hero-badges { display: none; }
+    .hero-content .hero-cta { display: none; }
 
-    /* Terminal comes first on mobile */
-    .hero-visual { order: -1; }
+    /* On mobile: name banner (natural position) comes first, then hero-visual (terminal), hero-content last */
+    .hero { flex-direction: column; }
+    .hero-visual { order: 0; }
+    .hero-content { order: 1; }
 
     /* Hero adjustments */
     .hero {

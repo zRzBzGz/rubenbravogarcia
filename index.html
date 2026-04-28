@@ -37,8 +37,36 @@
             <button id="theme-toggle" class="theme-btn" title="Toggle theme">
                 <span class="theme-icon">◐</span>
             </button>
+            <!-- HAMBURGER -->
+            <button id="nav-hamburger" class="hamburger-btn" aria-label="Menú" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- MOBILE NAV DRAWER -->
+    <div id="nav-mobile-drawer" class="nav-mobile-drawer" aria-hidden="true">
+        <a href="#sobre-mi"><span class="nav-num">01.</span>whoami</a>
+        <a href="#experiencia"><span class="nav-num">02.</span>xp</a>
+        <a href="#proyectos"><span class="nav-num">03.</span>projects</a>
+        <a href="#habilidades"><span class="nav-num">04.</span>skills</a>
+        <a href="#contacto"><span class="nav-num">05.</span>contact</a>
+    </div>
+
+    <!-- MOBILE NAME BANNER (shown only on mobile, above terminal) -->
+    <div class="mobile-name-banner">
+        <div class="mobile-prompt">
+            <span class="prompt-user">rbg</span><span class="prompt-at">@</span><span class="prompt-host">kali</span><span class="prompt-colon">:</span><span class="prompt-path">~/portfolio</span>
+        </div>
+        <h1 class="mobile-hero-name">
+            <span class="name-rubén">Rubén</span>
+            <span class="name-bravo">Bravo</span>
+            <span class="name-garcia accent">García</span>
+        </h1>
+        <p class="mobile-hero-role">
+            <span class="role-bracket">&lt;</span>ASIR<span class="sep"> // </span>CyberSec<span class="sep"> // </span>SysAdmin<span class="role-bracket"> /&gt;</span>
+        </p>
+    </div>
 
     <!-- ===================== HERO ===================== -->
     <header class="hero">
@@ -517,6 +545,59 @@
                     </div>
                 </div>
 
+                <!-- IDIOMAS -->
+                <div class="skills-wide">
+                    <div class="skill-category card idiomas-card">
+                        <h4 class="skill-cat-title"><span class="cat-icon">🌍</span> // Idiomas</h4>
+                        <div class="idiomas-grid">
+                            <div class="idioma-item">
+                                <div class="idioma-header">
+                                    <span class="idioma-flag">🇪🇸</span>
+                                    <div>
+                                        <span class="idioma-name">Español</span>
+                                        <span class="idioma-level native">Nativo</span>
+                                    </div>
+                                </div>
+                                <div class="idioma-bars">
+                                    <div class="idioma-bar-row">
+                                        <span class="idioma-bar-label">Comprensión</span>
+                                        <div class="skill-bar idioma-bar"><div class="skill-fill" style="--w:100%"></div></div>
+                                        <span class="skill-pct">C2</span>
+                                    </div>
+                                    <div class="idioma-bar-row">
+                                        <span class="idioma-bar-label">Expresión</span>
+                                        <div class="skill-bar idioma-bar"><div class="skill-fill" style="--w:100%"></div></div>
+                                        <span class="skill-pct">C2</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="idioma-divider"></div>
+                            <div class="idioma-item">
+                                <div class="idioma-header">
+                                    <span class="idioma-flag">🇬🇧</span>
+                                    <div>
+                                        <span class="idioma-name">Inglés</span>
+                                        <span class="idioma-level b2">B1/B2</span>
+                                    </div>
+                                </div>
+                                <div class="idioma-bars">
+                                    <div class="idioma-bar-row">
+                                        <span class="idioma-bar-label">Comprensión</span>
+                                        <div class="skill-bar idioma-bar"><div class="skill-fill" style="--w:75%"></div></div>
+                                        <span class="skill-pct">B2</span>
+                                    </div>
+                                    <div class="idioma-bar-row">
+                                        <span class="idioma-bar-label">Expresión</span>
+                                        <div class="skill-bar idioma-bar"><div class="skill-fill" style="--w:58%"></div></div>
+                                        <span class="skill-pct">B1</span>
+                                    </div>
+                                </div>
+                                <p class="idioma-note">// Lectura y escucha técnica fluida — producción oral en desarrollo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -614,7 +695,7 @@
 
 De: ' + name + '
 Email: ' + email);
-    }
+    };
     </script>
 </body>
 </html>

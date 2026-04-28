@@ -15,13 +15,14 @@ const COMMANDS = [
 ];
 
 export function initTyping() {
-    let cmdIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
     const typedEl = document.getElementById('typed-cmd');
+    if (!typedEl) return;
+
+    let cmdIndex   = 0;
+    let charIndex  = 0;
+    let isDeleting = false;
 
     function type() {
-        if (!typedEl) return;
         const current = COMMANDS[cmdIndex];
 
         if (!isDeleting) {
@@ -41,8 +42,7 @@ export function initTyping() {
             }
         }
 
-        const speed = isDeleting ? 40 : 75;
-        setTimeout(type, speed);
+        setTimeout(type, isDeleting ? 38 : 72);
     }
 
     setTimeout(type, 1400);

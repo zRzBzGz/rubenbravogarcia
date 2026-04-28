@@ -5,13 +5,15 @@
 
 export function initTheme() {
     const themeBtn = document.querySelector('#theme-toggle');
-    const body = document.body;
+    const body     = document.body;
+    if (!themeBtn) return;
 
     function updateIcon() {
         const icon = themeBtn.querySelector('.theme-icon');
-        icon.textContent = body.classList.contains('light-mode') ? '◑' : '◐';
+        if (icon) icon.textContent = body.classList.contains('light-mode') ? '◑' : '◐';
     }
 
+    // Apply saved preference
     const saved = localStorage.getItem('theme');
     if (saved === 'light') {
         body.classList.remove('dark-mode');

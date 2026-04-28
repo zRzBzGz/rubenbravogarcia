@@ -4,64 +4,70 @@
 // ============================================
 
 export function initScrollEffects() {
-    // Scroll reveal for sections
+    // ── Scroll reveal for sections ──────────────────────
     const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.animationPlayState = 'running';
+                revealObserver.unobserve(entry.target); // only trigger once
             }
         });
-    }, { threshold: 0.08 });
+    }, { threshold: 0.06 });
 
     sections.forEach(s => {
         s.style.animationPlayState = 'paused';
-        observer.observe(s);
+        revealObserver.observe(s);
     });
 
-    // Active nav link on scroll
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        document.querySelectorAll('section[id]').forEach(section => {
-            const top = section.offsetTop - 120;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-            if (scrollY >= top && scrollY < top + height) {
-                navLinks.forEach(a => a.classList.remove('active'));
-                const active = document.querySelector(`.nav-links a[href="#${id}"]`);
-                if (active) active.classList.add('active');
+    // ── Active nav link on scroll ────────────────────────
+    const navLinks = [
+        ...document.querySelectorAll('.nav-links a'),
+        ...document.querySelectorAll('.nav-mobile-drawer a'),
+    ];
+
+    const sectionEls = document.querySelectorAll('section[id]');
+
+    const activeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+                });
             }
         });
-    }, { passive: true });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
 
-    // Navbar border on scroll
+    sectionEls.forEach(s => activeObserver.observe(s));
+
+    // ── Navbar border on scroll ──────────────────────────
     const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            navbar.style.borderBottomColor = 'var(--border-strong)';
-        } else {
-            navbar.style.borderBottomColor = 'var(--border)';
-        }
-    }, { passive: true });
+    if (navbar) {
+        const onScroll = () => {
+            navbar.style.borderBottomColor = window.scrollY > 20
+                ? 'var(--border-strong)'
+                : 'var(--border)';
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
 }
 
 export function initCardTilt() {
+    // Only apply tilt on fine-pointer devices (mouse)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
     document.querySelectorAll('.project-card, .card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const cx = rect.width / 2;
-            const cy = rect.height / 2;
-            const dx = (x - cx) / cx;
-            const dy = (y - cy) / cy;
-            card.style.transform = `translateY(-5px) rotateX(${-dy * 3}deg) rotateY(${dx * 3}deg)`;
+            const dx = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+            const dy = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+            card.style.transform  = `translateY(-4px) rotateX(${-dy * 2.5}deg) rotateY(${dx * 2.5}deg)`;
             card.style.transition = 'box-shadow 0.3s, border-color 0.3s';
         });
         card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.style.transform  = '';
+            card.style.transition = 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
         });
     });
 }
@@ -70,7 +76,7 @@ export function initSkillBars() {
     const skillSection = document.getElementById('habilidades');
     if (!skillSection) return;
 
-    // Init paused
+    // Start bars paused
     document.querySelectorAll('.skill-fill').forEach(fill => {
         fill.style.animationPlayState = 'paused';
     });
@@ -81,12 +87,13 @@ export function initSkillBars() {
             if (entry.isIntersecting && !skillsAnimated) {
                 skillsAnimated = true;
                 document.querySelectorAll('.skill-fill').forEach((fill, i) => {
-                    fill.style.animationDelay = `${0.1 + i * 0.08}s`;
+                    fill.style.animationDelay     = `${0.08 + i * 0.07}s`;
                     fill.style.animationPlayState = 'running';
                 });
+                skillObserver.disconnect();
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
     skillObserver.observe(skillSection);
 }

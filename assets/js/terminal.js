@@ -100,8 +100,7 @@ const TERMINAL_COMMANDS = {
 
     nmap: {
         description: 'Fun nmap simulation',
-        handler: () => {
-            return `<span class="t-cyan">[*]</span> Starting Nmap scan on portfolio.local...
+        handler: () => `<span class="t-cyan">[*]</span> Starting Nmap scan on portfolio.local...
 <span class="t-cyan">[*]</span> Scanning 1 host...
 
 PORT     STATE  SERVICE    VERSION
@@ -112,8 +111,7 @@ PORT     STATE  SERVICE    VERSION
 
 <span class="t-green">[+]</span> OS: <span class="t-white">Kali Linux 2024.x</span>
 <span class="t-green">[+]</span> 3 open ports found
-<span class="t-muted">// Nmap done — 1 IP address scanned</span>`;
-        }
+<span class="t-muted">// Nmap done — 1 IP address scanned</span>`
     },
 
     status: {
@@ -141,10 +139,10 @@ PORT     STATE  SERVICE    VERSION
 
     clear: {
         description: 'Limpia la terminal',
-        handler: () => null // null = clear signal
+        handler: () => null
     },
 
-    'readme': {
+    readme: {
         description: 'README del portfolio',
         handler: () => `<span class="t-cyan"># Rubén Bravo García — Portfolio</span>
 
@@ -175,7 +173,6 @@ function initInteractiveTerminal() {
     const terminalBody = document.getElementById('terminal-body');
     if (!terminalBody) return;
 
-    // Convert existing terminal body into interactive shell
     terminalBody.innerHTML = `
         <div class="t-line"><span class="t-cyan">[*]</span> Terminal interactiva iniciada</div>
         <div class="t-line t-fade"><span class="t-green">[+]</span> Escribe <span class="t-white">help</span> para ver los comandos</div>
@@ -183,23 +180,24 @@ function initInteractiveTerminal() {
         <div class="t-output-area" id="t-output"></div>
         <div class="t-input-line" id="t-input-line">
             <span class="t-prompt-mini"><span class="t-green-mini">rbg</span><span class="t-muted-mini">@</span><span class="t-blue-mini">kali</span><span class="t-muted-mini">:</span><span class="t-yellow-mini">~$</span></span>
-            <input 
-                type="text" 
-                id="t-input" 
-                class="t-input-field" 
-                autocomplete="off" 
+            <input
+                type="text"
+                id="t-input"
+                class="t-input-field"
+                autocomplete="off"
                 autocorrect="off"
                 autocapitalize="off"
                 spellcheck="false"
                 placeholder="escribe un comando..."
+                aria-label="Terminal input"
             />
         </div>
     `;
 
-    const input = document.getElementById('t-input');
+    const input  = document.getElementById('t-input');
     const output = document.getElementById('t-output');
     let commandHistory = [];
-    let historyIndex = -1;
+    let historyIndex   = -1;
 
     function addOutput(html) {
         const div = document.createElement('div');
@@ -217,14 +215,16 @@ function initInteractiveTerminal() {
     }
 
     function escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return text
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
     }
 
     function processCommand(rawCmd) {
         const cmd = rawCmd.trim().toLowerCase();
         if (!cmd) return;
 
-        // Save to history
         commandHistory.unshift(rawCmd.trim());
         if (commandHistory.length > 20) commandHistory.pop();
         historyIndex = -1;
@@ -240,20 +240,17 @@ function initInteractiveTerminal() {
         const command = TERMINAL_COMMANDS[cmd];
         if (command) {
             const result = command.handler();
-            if (result !== null) {
-                addOutput(result);
-            }
+            if (result !== null) addOutput(result);
         } else {
-            // Fuzzy match suggestions
             const suggestions = Object.keys(TERMINAL_COMMANDS)
                 .filter(k => k.includes(cmd) || cmd.includes(k.split(' ')[0]))
                 .slice(0, 3);
 
             let errorMsg = `<span class="t-red">bash: ${escapeHtml(cmd)}: command not found</span>`;
             if (suggestions.length > 0) {
-                errorMsg += `\n<span class="t-muted">Quizás quisiste decir: ${suggestions.map(s => `<span class="t-green">${s}</span>`).join(', ')}</span>`;
+                errorMsg += `\n<span class="t-muted">¿Quisiste decir? ${suggestions.map(s => `<span class="t-green">${s}</span>`).join(', ')}</span>`;
             }
-            errorMsg += `\n<span class="t-muted">Escribe <span class="t-green">help</span> para ver los comandos disponibles</span>`;
+            errorMsg += `\n<span class="t-muted">Escribe <span class="t-green">help</span> para ver los comandos</span>`;
             addOutput(errorMsg);
         }
 
@@ -278,7 +275,7 @@ function initInteractiveTerminal() {
                 input.value = commandHistory[historyIndex];
             } else {
                 historyIndex = -1;
-                input.value = '';
+                input.value  = '';
             }
         } else if (e.key === 'Tab') {
             e.preventDefault();
@@ -294,9 +291,9 @@ function initInteractiveTerminal() {
         }
     });
 
-    // Click anywhere in terminal to focus input
+    // Tap anywhere in terminal to focus input (useful on mobile)
     terminalBody.addEventListener('click', () => input.focus());
 }
 
-// Export
+// Expose to global scope so main.js can call it
 window.initInteractiveTerminal = initInteractiveTerminal;
